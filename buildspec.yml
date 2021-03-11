@@ -21,5 +21,5 @@ phases:
       - export POLARIS_PROJECT_NAME=sig-devsecops/github-io-sample
       - export BLACKDUCK_PROJECT_NAME=github-io-sample:1.0.0
       - chmod +x io_actions.sh
-      - sed -i -e 's/\r$//' onboarding.sh
+      - sed -i -e 's/\r$//' io_actions.sh
       - ./io_actions.sh --stage=IO --workflow.version=2021.01
