@@ -20,4 +20,5 @@ phases:
       - export IO_ASSET_ID=devsecops-test/github-io-sample
       - export POLARIS_PROJECT_NAME=sig-devsecops/github-io-sample
       - export BLACKDUCK_PROJECT_NAME=github-io-sample:1.0.0
+      - chmod +x io-actions.sh
       - ./io-actions.sh --stage=IO --workflow.version=2021.01
