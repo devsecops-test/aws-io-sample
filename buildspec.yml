@@ -1,0 +1,18 @@
+version: 0.2
+
+env:
+  shell: io_actions
+  secrets-manager:
+    IO_SERVER_URL: IO_INTEGRATION:IO_SERVER_URL
+    WORKFLOW_ENGINE_SERVER_URL: IO_INTEGRATION:WORKFLOW_ENGINE_SERVER_URL
+
+phases:
+  pre_build:
+    commands:
+      - echo ================Getting IO Actions================
+      - wget https://intelligent-security-scan.s3.us-east-2.amazonaws.com/io_actions.sh
+  build:
+    commands:
+      - echo ================Build Maven Package and Docker Image================
+      - echo $IO_SERVER_URL
+      - echo $WORKFLOW_ENGINE_SERVER_URL
