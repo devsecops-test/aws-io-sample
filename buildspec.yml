@@ -1,7 +1,7 @@
 version: 0.2
 
 env:
-  shell: io_actions
+  shell: bash
   secrets-manager:
     IO_SERVER_URL: IO_INTEGRATION:IO_SERVER_URL
     WORKFLOW_ENGINE_SERVER_URL: IO_INTEGRATION:WORKFLOW_ENGINE_SERVER_URL
