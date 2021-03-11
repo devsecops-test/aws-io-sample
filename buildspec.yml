@@ -14,5 +14,10 @@ phases:
   build:
     commands:
       - echo ================Build Maven Package and Docker Image================
-      - echo $IO_SERVER_URL
-      - echo $WORKFLOW_ENGINE_SERVER_URL
+      - export GITHUB_WORKSPACE=rahulguna10
+      - export GITHUB_REPO_NAME=devsecops-test/github-io-sample
+      - export GITHUB_BRANCH_NAME=master
+      - export IO_ASSET_ID=devsecops-test/github-io-sample
+      - export POLARIS_PROJECT_NAME=sig-devsecops/github-io-sample
+      - export BLACKDUCK_PROJECT_NAME=github-io-sample:1.0.0
+      - ./io-actions.sh --stage=IO --workflow.version=2021.01
