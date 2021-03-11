@@ -34,7 +34,7 @@ phases:
       - echo ================Trigger Polaris Scan================
       - |
         if [ "$IS_SAST_ENABLED" = true ]; then 
-            wget -q ${{ secrets.POLARIS_SERVER_URL}}/api/tools/polaris_cli-linux64.zip
+            wget -q $POLARIS_SERVER_URL/api/tools/polaris_cli-linux64.zip
             unzip -j polaris_cli-linux64.zip -d /tmp
             /tmp/polaris analyze -w
         fi
