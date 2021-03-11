@@ -4,7 +4,12 @@ env:
   shell: bash
   secrets-manager:
     IO_SERVER_URL: IO_INTEGRATION:IO_SERVER_URL
+    IO_ACCESS_TOKEN: IO_INTEGRATION:IO_ACCESS_TOKEN
     WORKFLOW_ENGINE_SERVER_URL: IO_INTEGRATION:WORKFLOW_ENGINE_SERVER_URL
+    POLARIS_SERVER_URL: IO_INTEGRATION:POLARIS_SERVER_URL
+    POLARIS_ACCESS_TOKEN: IO_INTEGRATION:POLARIS_ACCESS_TOKEN
+    BLACKDUCK_SERVER_URL: IO_INTEGRATION:BLACKDUCK_SERVER_URL
+    BLACKDUCK_ACCESS_TOKEN: IO_INTEGRATION:BLACKDUCK_ACCESS_TOKEN
 
 phases:
   pre_build:
@@ -15,11 +20,12 @@ phases:
     commands:
       - echo ================Build Maven Package and Docker Image================
       - export GITHUB_WORKSPACE=rahulguna10
-      - export GITHUB_REPO_NAME=devsecops-test/github-io-sample
+      - export GITHUB_REPO_NAME=devsecops-test/aws-io-sample
       - export GITHUB_BRANCH_NAME=master
-      - export IO_ASSET_ID=devsecops-test/github-io-sample
-      - export POLARIS_PROJECT_NAME=sig-devsecops/github-io-sample
+      - export IO_ASSET_ID=devsecops-test/aws-io-sample
+      - export POLARIS_PROJECT_NAME=sig-devsecops/aws-io-sample
       - export BLACKDUCK_PROJECT_NAME=github-io-sample:1.0.0
       - chmod +x io_actions.sh
       - sed -i -e 's/\r$//' io_actions.sh
       - ./io_actions.sh --stage=IO --workflow.version=2021.01
+      - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.01 --is.sast.enabled=false --is.sca.enabled=true
