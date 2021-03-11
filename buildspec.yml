@@ -28,4 +28,31 @@ phases:
       - chmod +x io_actions.sh
       - sed -i -e 's/\r$//' io_actions.sh
       - ./io_actions.sh --stage=IO --workflow.version=2021.01
-      - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.01 --is.sast.enabled=false --is.sca.enabled=true
+  post_build:
+    commands:
+      - source io_actions.meta.env
+      - echo ================Trigger Polaris Scan================
+      - |
+        if [ "$IS_SAST_ENABLED" = true ]; then 
+            wget -q ${{ secrets.POLARIS_SERVER_URL}}/api/tools/polaris_cli-linux64.zip
+            unzip -j polaris_cli-linux64.zip -d /tmp
+            /tmp/polaris analyze -w
+        fi
+      - echo ================Trigger Blackduck Scan================
+      - |
+        if [ "$IS_SCA_ENABLED" = true ]; then 
+           bash <(curl -s https://detect.synopsys.com/detect.sh) \
+            --blackduck.url="$BLACKDUCK_SERVER_URL" \
+            --blackduck.api.token="$BLACKDUCK_ACCESS_TOKEN" \
+            --detect.tools="SIGNATURE_SCAN,DETECTOR" \
+            --detect.force.success="false" \
+            --detect.wait.for.results="false" \
+            --detect.policy.check.fail.on.severities="UNSPECIFIED" \
+            --logging.level.com.synopsys.integration="INFO"
+        fi
+      - echo ================STAGE IO WORKFLOWENGINE================
+      - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.01 --is.sast.enabled=$IS_SAST_ENABLED --is.sca.enabled=$IS_SCA_ENABLED
+  reports:
+    IO_SARIF_REPORT:
+     files:
+      - workflowengine-results.sarif.json
