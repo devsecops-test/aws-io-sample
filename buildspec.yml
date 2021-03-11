@@ -52,7 +52,7 @@ phases:
         fi
       - echo ================STAGE IO WORKFLOWENGINE================
       - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.01 --is.sast.enabled=$IS_SAST_ENABLED --is.sca.enabled=$IS_SCA_ENABLED
-  reports:
-    IO_SARIF_REPORT:
-     files:
-      - workflowengine-results.sarif.json
+reports:
+  IO_SARIF_REPORT:
+    files:
+     - workflowengine-results.sarif.json
