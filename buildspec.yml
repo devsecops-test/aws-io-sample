@@ -15,6 +15,10 @@ phases:
   pre_build:
     commands:
       - echo ================Getting IO Actions================
+      - echo $CODEBUILD_SOURCE_REPO_URL
+      - echo $CODEBUILD_WEBHOOK_BASE_REF
+      - echo $CODEBUILD_WEBHOOK_HEAD_REF
+      - echo $CODEBUILD_WEBHOOK_TRIGGER
       - wget https://intelligent-security-scan.s3.us-east-2.amazonaws.com/io_actions.sh
   build:
     commands:
@@ -44,11 +48,7 @@ phases:
            bash <(curl -s https://detect.synopsys.com/detect.sh) \
             --blackduck.url="$BLACKDUCK_SERVER_URL" \
             --blackduck.api.token="$BLACKDUCK_ACCESS_TOKEN" \
-            --detect.tools="SIGNATURE_SCAN,DETECTOR" \
-            --detect.force.success="false" \
-            --detect.wait.for.results="false" \
-            --detect.policy.check.fail.on.severities="UNSPECIFIED" \
-            --logging.level.com.synopsys.integration="INFO"
+            --detect.tools="SIGNATURE_SCAN,DETECTOR"
         fi
       - echo ================STAGE IO WORKFLOWENGINE================
       - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.01 --is.sast.enabled=$IS_SAST_ENABLED --is.sca.enabled=$IS_SCA_ENABLED
