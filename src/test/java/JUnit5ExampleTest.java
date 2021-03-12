@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
  
 class JUnit5ExampleTest {
  
@@ -19,11 +20,13 @@ class JUnit5ExampleTest {
 	
     @Test
     void Test4() {
- 	fail();
+		String obj1="Junit";
+		String obj2="Junit1";
+		assertEquals(obj1,obj2);
     }
 	
     @Test
     void Test5() {
- 	fail();
+		
     }
 }
