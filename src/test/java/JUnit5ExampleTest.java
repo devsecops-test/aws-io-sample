@@ -27,6 +27,8 @@ class JUnit5ExampleTest {
 	
     @Test
     void Test5() {
-		
+		String obj1="Junit";
+		String obj2="Junit";
+		assertEquals(obj1,obj2);
     }
 }
