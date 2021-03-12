@@ -15,6 +15,7 @@ phases:
   pre_build:
     commands:
       - echo ================Getting IO Actions================
+      - mvn clean test
       - printenv
       - echo $CODEBUILD_SOURCE_REPO_URL
       - echo $CODEBUILD_WEBHOOK_BASE_REF
@@ -57,3 +58,7 @@ reports:
   IO_SARIF_REPORT:
     files:
      - workflowengine-results.sarif.json
+  JUnit-reports:
+    files:
+      - "target/surefire-reports/*.xml"
+    file-format: "JUNITXML"
