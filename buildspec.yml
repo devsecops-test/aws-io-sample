@@ -15,6 +15,7 @@ phases:
   pre_build:
     commands:
       - echo ================Getting IO Actions================
+      - printenv
       - echo $CODEBUILD_SOURCE_REPO_URL
       - echo $CODEBUILD_WEBHOOK_BASE_REF
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
@@ -28,7 +29,7 @@ phases:
       - export GITHUB_BRANCH_NAME=master
       - export IO_ASSET_ID=devsecops-test/aws-io-sample
       - export POLARIS_PROJECT_NAME=sig-devsecops/aws-io-sample
-      - export BLACKDUCK_PROJECT_NAME=github-io-sample:1.0.0
+      - export BLACKDUCK_PROJECT_NAME=aws-io-sample:1.0.0
       - chmod +x io_actions.sh
       - sed -i -e 's/\r$//' io_actions.sh
       - ./io_actions.sh --stage=IO --workflow.version=2021.01
