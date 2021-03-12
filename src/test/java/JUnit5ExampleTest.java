@@ -7,13 +7,23 @@ class JUnit5ExampleTest {
  
     }
 	
-	@Test
+    @Test
     void Test2() {
  
     }
 	
-	@Test
+    @Test
     void Test3() {
  
+    }
+	
+    @Test
+    void Test4() {
+ 	fail();
+    }
+	
+    @Test
+    void Test5() {
+ 	fail();
     }
 }
