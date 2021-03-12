@@ -21,6 +21,7 @@ phases:
       - echo $CODEBUILD_WEBHOOK_BASE_REF
       - echo $CODEBUILD_WEBHOOK_HEAD_REF
       - echo $CODEBUILD_WEBHOOK_TRIGGER
+      - echo $CODEBUILD_SRC_DIR
       - wget https://intelligent-security-scan.s3.us-east-2.amazonaws.com/io_actions.sh
   build:
     commands:
