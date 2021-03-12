@@ -63,3 +63,6 @@ reports:
     files:
       - "target/surefire-reports/*.xml"
     file-format: "JUNITXML"
+artifacts:
+  files:
+     - workflowengine-results.sarif.json
