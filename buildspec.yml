@@ -10,28 +10,27 @@ env:
     POLARIS_ACCESS_TOKEN: IO_INTEGRATION:POLARIS_ACCESS_TOKEN
     BLACKDUCK_SERVER_URL: IO_INTEGRATION:BLACKDUCK_SERVER_URL
     BLACKDUCK_ACCESS_TOKEN: IO_INTEGRATION:BLACKDUCK_ACCESS_TOKEN
+  variables:
+     IS_SAST_ENABLED: false
+     IS_SCA_ENABLED: false
+     IS_DAST_ENABLED: false
+     SCM_TYPE: github
+     GITHUB_WORKSPACE: "devsecops-test"
+     GITHUB_REPO_NAME: "aws-io-sample"
+     GITHUB_BRANCH_NAME: master
+     IO_ASSET_ID: "devsecops-test/aws-io-sample"
+     POLARIS_PROJECT_NAME: "sig-devsecops/aws-io-sample"
+     BLACKDUCK_PROJECT_NAME: "github-io-sample:1.0.0"
 
 phases:
   pre_build:
     commands:
       - echo ================Getting IO Actions================
       - mvn clean test
-      - printenv
-      - echo $CODEBUILD_SOURCE_REPO_URL
-      - echo $CODEBUILD_WEBHOOK_BASE_REF
-      - echo $CODEBUILD_WEBHOOK_HEAD_REF
-      - echo $CODEBUILD_WEBHOOK_TRIGGER
-      - echo $CODEBUILD_SRC_DIR
       - wget https://intelligent-security-scan.s3.us-east-2.amazonaws.com/io_actions.sh
   build:
     commands:
       - echo ================Build Maven Package and Docker Image================
-      - export GITHUB_WORKSPACE=rahulguna10
-      - export GITHUB_REPO_NAME=devsecops-test/aws-io-sample
-      - export GITHUB_BRANCH_NAME=master
-      - export IO_ASSET_ID=devsecops-test/aws-io-sample
-      - export POLARIS_PROJECT_NAME=sig-devsecops/aws-io-sample
-      - export BLACKDUCK_PROJECT_NAME=aws-io-sample:1.0.0
       - chmod +x io_actions.sh
       - sed -i -e 's/\r$//' io_actions.sh
       - ./io_actions.sh --stage=IO --workflow.version=2021.04
