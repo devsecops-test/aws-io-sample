@@ -15,12 +15,14 @@ env:
      IS_SCA_ENABLED: false
      IS_DAST_ENABLED: false
      SCM_TYPE: github
-     GITHUB_WORKSPACE: "devsecops-test"
-     GITHUB_REPO_NAME: "aws-io-sample"
+     GITHUB_WORKSPACE: devsecops-test
+     GITHUB_REPO_NAME: github-io-sample
      GITHUB_BRANCH_NAME: master
      IO_ASSET_ID: "devsecops-test/aws-io-sample"
-     POLARIS_PROJECT_NAME: "sig-devsecops/aws-io-sample"
+     POLARIS_PROJECT_NAME: "sig-devsecops/github-io-sample"
      BLACKDUCK_PROJECT_NAME: "github-io-sample:1.0.0"
+     RELEASE_TYPE: major
+     PERSONA: devsecops
 
 phases:
   pre_build:
@@ -33,7 +35,7 @@ phases:
       - echo ================Build Maven Package and Docker Image================
       - chmod +x io_actions.sh
       - sed -i -e 's/\r$//' io_actions.sh
-      - ./io_actions.sh --stage=IO --workflow.version=2021.04
+      - ./io_actions.sh --stage=IO --workflow.version=2021.04 --manifest.type=json
   post_build:
     commands:
       - source io_actions.meta.env
@@ -53,7 +55,7 @@ phases:
             --detect.tools="SIGNATURE_SCAN,DETECTOR"
         fi
       - echo ================STAGE IO WORKFLOWENGINE================
-      - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.01 --is.sast.enabled=$IS_SAST_ENABLED --is.sca.enabled=$IS_SCA_ENABLED
+      - ./io_actions.sh --stage=WORKFLOW --workflow.version=2021.04 --manifest.type=json --is.sast.enabled=$IS_SAST_ENABLED --is.sca.enabled=$IS_SCA_ENABLED
 reports:
   IO_SARIF_REPORT:
     files:
