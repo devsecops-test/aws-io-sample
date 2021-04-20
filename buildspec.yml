@@ -34,7 +34,7 @@ phases:
       - export BLACKDUCK_PROJECT_NAME=aws-io-sample:1.0.0
       - chmod +x io_actions.sh
       - sed -i -e 's/\r$//' io_actions.sh
-      - ./io_actions.sh --stage=IO --workflow.version=2021.01
+      - ./io_actions.sh --stage=IO --workflow.version=2021.04
   post_build:
     commands:
       - source io_actions.meta.env
