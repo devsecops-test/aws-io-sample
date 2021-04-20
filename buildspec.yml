@@ -22,7 +22,7 @@ env:
      POLARIS_PROJECT_NAME: "sig-devsecops/github-io-sample"
      BLACKDUCK_PROJECT_NAME: "github-io-sample:1.0.0"
      RELEASE_TYPE: major
-     PERSONA: devsecops
+     PERSONA: developer
 
 phases:
   pre_build:
